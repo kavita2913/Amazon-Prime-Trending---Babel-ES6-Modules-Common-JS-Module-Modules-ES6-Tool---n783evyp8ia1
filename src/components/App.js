@@ -1,6 +1,6 @@
 import React, {Component, useState} from "react";
 import '../styles/App.css';
-import '../data.js';
+import '../data/App.js';
 const App = () => {
   return (
     <div>
