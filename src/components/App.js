@@ -1,37 +1,46 @@
 import React, {Component, useState} from "react";
 import '../styles/App.css';
-import slides from '../data/App.js';
-const App = (props) => {
-  const [index,indexSetter] = React.useState(0);
-  function nextClick()= () =>{
-    if(index === 5){
+
+const App = ({slides}) => {
+  const [index,setIndex] = useState(0);
+
+  const handlePrev = ()=>{
+    if(index===0){
       return;
     }
-    indexSetter(index+1);
-  };
-  function prevClick()= () =>{
-    if(index === 0){
+    setIndex(index-1);
+  }
+
+  const handleNext = ()=>{
+    if(index===slides.length-1){
       return;
     }
-    indexSetter(index-1);
-  };
-  function restartClick()= () =>{
-    indexSetter(0);
-  };
-   function isLastIndex= () =>{
-    return index === 5;
+    setIndex(index+1);
+
   }
-  function isFirstIndex= () =>{
-    return index ===0;
+
+  const handleRestart = ()=>{
+      setIndex(0);
   }
+
   return (
-    <h1 data-testid="title">{props.slides[index].title}</h1>
-    <p data-testid="text"> {props.slides[index].text}</p>
-    <button  data-testid="button-next" disabled= "isLastIndex()" onClick= "nextClick()">Next</button>
-    <button data-testid="button-prev" disabled= "isFirstIndex()" onClick ="prevClick()">Prev</button>
-    <button  data-testid="button-restart">Restart</button>
-    
-   
+    <>
+    <div className='App'>
+      <div id="slide">
+      <h1 data-testid="title">
+        {slides[index].title}
+      </h1>
+       <p data-testid="text">
+       {slides[index].text}
+       </p>
+       <div id='navigation'>
+       {index===0?<button type="button" disabled data-testid="button-prev" onClick={handlePrev}>Previous</button>:<button type="button"  data-testid="button-prev" onClick={handlePrev}>Previous</button>} 
+       {index===0?<button type="button" disabled data-testid="button-restart" onClick={handleRestart}>Restart</button>:<button type="button"  data-testid="button-restart" onClick={handleRestart}>Restart</button>}
+        {index===slides.length-1?<button type="button" disabled data-testid="button-next" onClick={handleNext}>Next</button>:<button type="button" data-testid="button-next" onClick={handleNext}>Next</button>}
+       </div>
+       </div>
+    </div>
+    </>
   )
 }
 
